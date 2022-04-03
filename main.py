@@ -109,5 +109,5 @@ while True:
     if "loop" in dir():
         loop()
     f = get_screenshot()
-    send_image(f)
+    send_image(f,caption)
     time.sleep(interval)

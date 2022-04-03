@@ -48,7 +48,6 @@ caption = "amogus"
 
 def get_screenshot():
     fname = os.environ["TEMP"]+"/"+str(time.time())+".png".replace("\\","/")
-    print(fname)
     im2 = pyautogui.screenshot(fname)
     return fname
 

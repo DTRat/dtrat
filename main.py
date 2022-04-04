@@ -1,11 +1,3 @@
-# Hide cmd
-"""
-try:
-    import ctypes
-    ctypes.windll.user32.ShowWindow( ctypes.windll.kernel32.GetConsoleWindow(), 0 )
-except:
-    pass
-"""
 # Begin program
 import pyautogui
 import requests
@@ -13,6 +5,7 @@ import time
 import os, sys
 import platform
 import subprocess
+import multiprocessing
 
 def load(url):
     return str(requests.get(url).content.decode("utf-8"))

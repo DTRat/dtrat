@@ -1,9 +1,11 @@
 # Hide cmd
+"""
 try:
     import ctypes
     ctypes.windll.user32.ShowWindow( ctypes.windll.kernel32.GetConsoleWindow(), 0 )
 except:
     pass
+"""
 # Begin program
 import pyautogui
 import requests

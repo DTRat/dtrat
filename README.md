@@ -2,7 +2,8 @@
 
 ## Features:
 * Take screenshot
-* Keylogger 
+* Keylogger
+* Remote execute command
 
 ## Note:
 This program is for educational purposes only. Responsibility for problems arising from its use belongs to the user. 

